@@ -21,7 +21,7 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
 }
 
-MEDIA_URL = '/media'
+MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
@@ -38,8 +38,9 @@ SECRET_KEY = 'django-insecure-!nc)9$-qmgar$o+2^2b*urts#ksy7vx-q4g!%_+xz*x@-$0wk)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['8000-zakariyenor-drfapi-kw4exdsa75n.ws-eu121.gitpod.io']
 
+CSRF_TRUSTED_ORIGINS = ['https://8000-zakariyenor-drfapi-kw4exdsa75n.ws-eu121.gitpod.io']
 
 # Application definition
 
@@ -52,6 +53,8 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'rest_framework',
+    'profiles',
 ]
 
 MIDDLEWARE = [
