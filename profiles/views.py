@@ -56,7 +56,8 @@ class ProfileDetail(APIView):
 
 """ Generic approach """
 
-from rest_framework import generics, permissions
+from django.db.models import Count
+from rest_framework import generics, permissions, filters
 from drf_api.permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .serializers import ProfileSerializers
@@ -64,17 +65,36 @@ from .serializers import ProfileSerializers
 
 # Create your views here.
 class ProfileList(generics.ListCreateAPIView):
-        serializer_class = ProfileSerializers
-        queryset = Profile.objects.all()
-        permission_classes = [
-            permissions.IsAuthenticatedOrReadOnly
-        ]
-        
-        def perform_create(self, serializer):
-            serializer.save(owner=self.request.user)
+    serializer_class = ProfileSerializers
+    ordering_fields = [
+        'post_count',
+        'followers_count', 
+        'following_count',
+        'owner__following__created_at',
+        'owner__followed__created_at',
+        'filterset_fields',
+    ]
+    queryset = Profile.objects.annotate(
+        post_count=Count('owner__post', distinct=True),
+        followers_count=Count('owner__followed', distinct=True),
+        following_count=Count('owner__following', distinct=True),
+        filterset_fields=Count('owner__following__owner__profile', distinct=True)
+    ).order_by('-created_at')
+
+    filter_backends = [
+        filters.OrderingFilter
+    ]
+
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     serializer_class = ProfileSerializers
-    queryset = Profile.objects.all()
+    queryset = Profile.objects.annotate(
+        post_count=Count('owner__post', distinct=True),
+        followers_count=Count('owner__followed', distinct=True),
+        following_count=Count('owner__following', distinct=True)
+    ).order_by('-created_at')
     permission_classes = [IsOwnerOrReadOnly]
