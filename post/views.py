@@ -1,4 +1,6 @@
-from django.http import Http404
+""" Manual Approach """
+
+""" from django.http import Http404
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -69,4 +71,25 @@ class PostDetail(APIView):
         post.delete()
         return Response(
             status=status.HTTP_204_NO_CONTENT
-        )
+        ) """
+
+""" Generic approach """
+
+
+from rest_framework import generics, permissions
+from drf_api.permissions import IsOwnerOrReadOnly
+from .models import Post
+from .serializer import PostSerializer
+
+
+class PostList(generics.ListCreateAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
+
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
