@@ -62,14 +62,15 @@ REST_AUTH_SERIALIZERS = {
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!nc)9$-qmgar$o+2^2b*urts#ksy7vx-q4g!%_+xz*x@-$0wk)'
+""" SECRET_KEY = 'django-insecure-!nc)9$-qmgar$o+2^2b*urts#ksy7vx-q4g!%_+xz*x@-$0wk)' """
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['8000-zakariyenor-drfapi-gu6wt9nod9y.ws-eu121.gitpod.io']
+ALLOWED_HOSTS = ['8000-zakariyenor-drfapi-0uxj8angcxh.ws-eu121.gitpod.io']
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-zakariyenor-drfapi-gu6wt9nod9y.ws-eu121.gitpod.io']
+CSRF_TRUSTED_ORIGINS = ['https://8000-zakariyenor-drfapi-0uxj8angcxh.ws-eu121.gitpod.io']
 
 # Application definition
 
