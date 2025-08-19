@@ -76,8 +76,8 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-zakariyenor-drfapi-0uxj8angcxh.ws-eu121.gitpod.io',
-    'https://drf-api-rect-2ba84034ad74.herokuapp.com',
+    "https://drf-api-rect-2ba84034ad74.herokuapp.com",
+    "https://*.gitpod.io",
 ]
 
 
@@ -129,10 +129,15 @@ if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
         os.environ.get('CLIENT_ORIGIN')
     ]
+    if 'CLIENT_ORIGIN_DEV' in os.environ:
+        CORS_ALLOWED_ORIGINS.append(os.environ.get('CLIENT_ORIGIN_DEV'))
+
 else:
     CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https:\/\/.*\.gitpod\.io$",
         r"^https:\/\/.*\.codeinstitute-ide\.net$",
     ]
+
 CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'drf_api.urls'
