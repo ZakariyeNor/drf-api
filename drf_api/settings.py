@@ -71,11 +71,15 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
-    '8000-zakariyenor-drfapi-0uxj8angcxh.ws-eu121.gitpod.io'
-    , 'https://drf-api-rect-2ba84034ad74.herokuapp.com'
+    '8000-zakariyenor-drfapi-0uxj8angcxh.ws-eu121.gitpod.io',
+    'drf-api-rect-2ba84034ad74.herokuapp.com',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-zakariyenor-drfapi-0uxj8angcxh.ws-eu121.gitpod.io']
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-zakariyenor-drfapi-0uxj8angcxh.ws-eu121.gitpod.io',
+    'https://drf-api-rect-2ba84034ad74.herokuapp.com',
+]
+
 
 # Application definition
 
