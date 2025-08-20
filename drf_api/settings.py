@@ -28,26 +28,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-if 'DEV' in os.environ:
-    DEFAULT_AUTH_CLASSES = [
-        'rest_framework.authentication.SessionAuthentication',
-    ]
-    JWT_AUTH_SECURE = False  # allow HTTP for dev
-else:
-    DEFAULT_AUTH_CLASSES = [
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    ]
-    JWT_AUTH_SECURE = True  # HTTPS only for prod
-
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': DEFAULT_AUTH_CLASSES,
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
-    'DATETIME_FORMAT': '%d %b %Y',
-}
-
-
-""" REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
         'rest_framework.authentication.SessionAuthentication'
         if 'DEV' in os.environ
@@ -57,7 +38,7 @@ REST_FRAMEWORK = {
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10 ,
     'DATETIME_FORMAT': '%d %b %Y',
-} """
+}
 
 
 if 'DEV' not in os.environ:
